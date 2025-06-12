@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>즐겨찾기 모음</h2>
+	<table class ="table">
+		<thead>
+			<tr>
+				<th>NO.</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "favorite: ${favoriteInfo}">
+				<td id = "favoriteId" th:text = ${favorite.id}>1</td>
+				<td th:text = ${favorite.name}>1</td>
+				<td th:text =${favorite.url}>1</td>
+				<td>
+  					<button  class="btn btn-danger delBtn" th:value="${favorite.id}">삭제</button>
+				</td>	
+			</tr>
+		</tbody>
+	</table>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+		$(".delBtn").on("click", function () {
+			  let id = $(this).val();
+		
+			  $.ajax({
+			    type: "GET",
+			    url: "/ajax/favorite/delete",
+			    data: { id: id },
+			    success: function (response) {
+			      if (response.deleteResult === "success") {
+			        alert("성공!");
+			        location.reload(); 
+			      } else {
+			        alert("삭제 실패!");
+			      }
+			    },
+			    error: function () {
+			      alert("삭제 에러!");
+			    }
+			  });
+			});
+
+	
+</script>
+</body>
+</html>

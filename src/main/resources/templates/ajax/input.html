@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>즐겨찾기 추가하기</h3>
+	<label>제목</label><br>
+	<input id = "nameInput" class = "form-control" type = "text">
+	<label>url</label><br>
+	<div class = "d-flex">
+		<input id = "urlInput" class = "form-control mb-2 col-11 mr-2" type = "text">
+		<button id = "checkBtn" class = "btn btn-primary">중복확인</button>
+	</div>
+	<span id ="duplicatedUrl" class = "text-danger d-none">중복된 url입니다.</span>
+	<button id="addButton" class = "w-100 btn btn-success">추가</button>
+	
+	
+	
+	
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+	$("#checkBtn").on("click",function(){
+		let url = $("#urlInput").val();
+		if(url == " "){
+			alert("URL을 입력하세요!");
+			return;
+		}
+		
+		 $.ajax({
+			type : "GET"
+			,url : "/ajax/favorite/compare"
+			,data : {"url" : url}
+			,success : function(response){
+				if(response.check == "duplicate"){
+					$("#duplicatedUrl").text("중복된 url입니다.");
+					$("#duplicatedUrl").removeClass("d-none");
+					
+				}
+				else{
+					$("#duplicatedUrl").text("저장 가능한 url입니다.");
+					$("#duplicatedUrl").removeClass("d-none");
+					
+					
+				}
+			}
+			,error : function(){
+				alert("중복확인 중  추가 에러!");
+			}
+		}); 
+	
+		
+	});
+	
+	$("#addButton").on("click", function() {
+		let name = $("#nameInput").val();
+		let url = $("#urlInput").val();
+	
+		if (name == " ") {
+			alert("제목을 입력하세요!");
+			return;
+		}
+	
+		if (url == " ") {
+			alert("URL을 입력하세요!");
+			return;
+		}
+	
+		if (!(url.startsWith("http://") || url.startsWith("https://"))) {
+			alert("URL의 형식이 잘못되었습니다. http:// 또는 https:// 로 시작해야 합니다.");
+			return;
+		}
+	
+		alert("즐겨찾기 추가 완료!");
+		
+		$.ajax({
+			type : "GET"
+			,url : "/ajax/favorite/create"
+			,data : {"name": name, "url" : url}
+			,success : function(response){
+				if(response.result == "success"){
+					location.href = "/ajax/favorite/select";
+				}
+				else{
+					alert("즐겨찾기 추가 실패!");
+				}
+			}
+			,error : function(){
+				alert("즐겨찾기 추가 에러!");
+			}
+		});
+	});
+	
+
+
+	
+</script>
+</body>
+</html>

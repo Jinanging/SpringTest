@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <link rel = "stylesheet" href = "/ajax/style.css"> 
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+            <title>통나무 팬션</title>
+        </head>
+        <body>
+            <div id = "wrap">
+                <header class = "display-4 d-flex align-items-center justify-content-center">통나무 펜션</header>
+                <nav>
+                    <ul class = "nav nav-fill pt-3">
+                        <li class ="nav-item"><a href = "http://localhost:8080/ajax/booking" class ="nav-item text-white font-weight-bold">펜션 소개</a></li>
+                        <li class ="nav-item"><a href = "#" class ="nav-item text-white font-weight-bold">객실보기</a></li>
+                        <li class ="nav-item"><a href = "http://localhost:8080/ajax/bookingInput" class ="nav-item text-white font-weight-bold">예약하기</a></li>
+                        <li class ="nav-item"><a href = "http://localhost:8080/ajax/bookingList#" class ="nav-item text-white font-weight-bold">예약목록</a></li>
+                    </ul>
+
+                </nav>
+                <section>
+                    <div class = "image">
+                        <img id = "imageLoop" alt = "펜션사진"  src = "http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner1.jpg"></image>
+
+                    </div>
+                    <div class = "d-flex">
+                        <div class = "d-flex align-items-center justify-content-center display-4 reserveMent text-white">
+                            <div>
+                                <div>실시간</div>
+                                <div>예약 하기</div>
+                            </div>
+                        </div>
+                        <div class = "text-white reservation">
+                            <div class ="memberSelect d-flex  align-items-center">
+                                
+                                <div class ="pl-4 pr-4"><h2>예약 확인</h2></div>             
+                                <label class="pr-3">회원<input id = "mem" value = "member" name = "check" type = "radio" checked></label>
+                                <label>비회원<input id = "nonMem" value = "nonMember" name ="check" type = "radio"></label>
+                            </div>
+                            <div class = "memberInfo justify-content-center pt-3">
+                                <div  class = "px-4">
+                                    <div id = "memberId">
+                                        <div class = "d-flex">
+                                            <div class = "ml-1 mr-4">아이디 : </div>
+                                            <input id = "idInput" class = " col-8 form-control" type = "text ">
+                                        </div>
+
+                                    </div>
+                                    <div id = "nonMemberName" class = " d-none">                                       
+                                        <div class = "d-flex">
+                                            <div class = "ml-4 mr-3"> 이 름 : </div>
+                                            <input id = "nameInput" class = " col-8 form-control" type = "text ">
+                                        </div>
+
+                                    </div>
+                                    <div id= "memberPw">
+                                        <div class = "w-100 d-flex mt-3">   
+                                            <div class = "ml-1 mr-2">비밀번호 : </div>
+                                            <input id = "passwordInput" class = " col-8 form-control" type = "text ">
+                                        </div>
+                                        
+                                    </div>
+                                    <div id = "nonMemberNumber" class = "d-none">
+                                        <div class = "w-100 d-flex mt-3">
+                                            <div class = "pl-2 mr-2">전화번호 : </div>
+                                            <input id = "numberInput" class = " col-8 form-control" type = "text ">
+                                        </div>
+                                    </div>
+                              
+                                    
+                                    
+                                    <div class =" pt-3 d-flex justify-content-end col-11">
+                                        <button id = "buttonClick" class = "btn btn-success" type = "button">조회하기</button>
+                                    </div>
+                                
+                                    
+                                    
+                                </div>
+
+                            </div>
+                            
+                            
+                            
+
+                        </div>
+                        
+                        <div class = "text-white numberInfo d-flex justify-content-center align-items-center display-4 font-weight-bold">
+                            <div>
+                                <div>예약문의:</div>
+                                <div>010-</div>
+                                <div>000-1111</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </section>
+                <footer class ="pt-3 pl-4">
+                    <div>제주특별자치도 제주시 애월읍</div>
+                    <div>사업자등록번호:111-22-255222/농어촌민박사업자지정/대표:김통목</div>
+                    <div>Copyright 2025 tongnamu All Right Reserved</div>
+                </footer>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+            <script>
+                var imageArray = ["http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner1.jpg","http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner2.jpg","http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner3.jpg","http://marondal.com/material/images/dulumary/web/front/jquery/test06_banner4.jpg"];
+                var index = 0;
+                setInterval(() => {
+                    let newIndex = index % imageArray.length;
+                    $("#imageLoop").attr("src",imageArray[newIndex]);
+                    index++;
+                    
+                }, 3000);
+
+
+                $("#buttonClick").on("click",function(){
+                    let checkedVal = $("input[name=check]:checked").val();
+                    if(checkedVal == "member"){
+                        let memberId = $("#idInput").val();
+                        let memberPw = $("#passwordInput").val();
+                        
+                        if(memberId == ""){
+                            alert("아이디를 입력하세요");
+                        }
+                        else if(memberPw == ""){
+                            alert("패스워드를 입력하세요");
+                        }
+                    }
+                    else{
+                        let nonMemberName = $("#nameInput").val();
+                        let nonMemberNumber = $("#numberInput").val();
+                  
+                        let startNumber = nonMemberNumber.substring(0,3);
+                        if(nonMemberName == ""){
+                            alert("이름을 입력하세요");
+                            return;
+                        }
+                        if(nonMemberNumber == ""){
+                            alert("전화번호를 입력하세요");
+                            return;
+                        }
+                        else if(startNumber != "010"){
+                            alert("010으로 시작하는 번호를 입력해주세요");
+                            return;
+
+                        }
+                        
+                    	$.ajax({
+                			type :"GET",
+                			url : "/ajax/check",
+                			data : {"name":nonMemberName,"phoneNumber":nonMemberNumber},
+                			success: function(response) {
+                		        if(response.result === "success") {
+                		            let book = response.checkMap;
+                		            alert(
+                		                "예약자: " + book.name +
+                		                "\n날짜: " + book.date +
+                		                "\n숙박일수: " + book.day +
+                		                "\n인원수: " + book.headCount +
+                		                "\n상태: " + book.state
+                		            );
+                				}
+                		        else{
+                		        	alert("조회 결과가 없습니다.");
+                		        	
+                		        }
+                			}
+                			,error : function(){
+                				alert("조회 에러!");
+                			}
+                		
+                			
+                		});
+                    }
+                    
+                    
+
+                });
+
+             
+                
+
+
+                $("input[name=check]").on("change",function(){
+                    let memberChecking = $(this).val();
+                    
+                    if(memberChecking == "nonMember"){
+                       
+                        $("#nonMemberNumber").removeClass("d-none");
+                        $("#nonMemberName").removeClass("d-none");
+                        $("#memberId").addClass("d-none");
+                        $("#memberPw").addClass("d-none");
+
+                        
+                        
+                        
+                    }
+                    else{
+                       
+                        $("#nonMemberNumber").addClass("d-none");
+                        $("#nonMemberName").addClass("d-none");
+                        $("#memberId").removeClass("d-none");
+                        $("#memberPw").removeClass("d-none");
+                        
+                    }
+                
+                });
+
+                
+
+            </script>
+
+            
+        </body>
+    </html>

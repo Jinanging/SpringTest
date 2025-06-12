@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>반복문1</title>
+</head>
+<body>
+	<div class = "container">
+		<h2>멤버십</h2>
+			<table class = "table text-center">
+				<thead>
+					<tr>
+						<th>이름</th>
+						<th>전화번호</th>
+						<th>등급</th>
+						<th>포인트</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="member:${membership}">
+						<td th:text="${member.name}">손오공</td>
+						<td th:text="${member.phoneNumber}">010</td>
+						
+						<div th:switch="${member.grade}">
+							<td th:case = "VIP" class = "text-danger" th:text="${member.grade}">vip</td>
+							<td th:case = "GOLD" class = "text-warning" th:text="${member.grade}">vip</td>
+							<td th:case = "*" th:text="${member.grade}">vip</td>
+						</div>
+						
+						
+						
+						<td class = "text-primary" th:if="${member.point} >=5000" th:text="${member.point}+'P'">12040p</td>
+						<td th:unless="${member.point} >=5000" th:text="${member.point}+'P'">12040p</td>
+					
+					</tr>
+				
+				
+				</tbody>
+			
+			</table>
+	</div>
+
+</body>
+</html>
